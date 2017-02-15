@@ -9,12 +9,19 @@ RUN apt-get update && apt-get install -y \
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 RUN curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
 
+RUN apt-add-repository ppa:ondrej/php -y
+
 # install SQL Server drivers
 RUN apt-get update && ACCEPT_EULA=Y apt-get install -y unixodbc-dev msodbcsql 
 
 # php libraries
 RUN apt-get update && apt-get install -y \
-    php7.0 libapache2-mod-php7.0 mcrypt php7.0-mcrypt php-mbstring php-pear php7.0-dev \
+    mcrypt \
+    php-mbstring \
+    php-pear \
+    php7.0 \
+    php7.0-dev \
+    php7.0-mcrypt \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
@@ -26,10 +33,6 @@ RUN apt-get install -y locales \
 # install SQL Server PHP connector module 
 RUN pecl install sqlsrv pdo_sqlsrv
 
-# initial configuration of SQL Server PHP connector
-RUN echo "extension=/usr/lib/php/20151012/sqlsrv.so" >> /etc/php/7.0/cli/php.ini
-RUN echo "extension=/usr/lib/php/20151012/pdo_sqlsrv.so" >> /etc/php/7.0/cli/php.ini
-
 # Install packages
 ADD provision.sh /provision.sh
 ADD serve.sh /serve.sh
@@ -40,6 +43,9 @@ RUN chmod +x /*.sh
 
 RUN ./provision.sh
 
+# configuration of SQL Server PHP connector
+RUN echo "extension=/usr/lib/php/20151012/sqlsrv.so" >> /etc/php/7.0/cli/php.ini
+RUN echo "extension=/usr/lib/php/20151012/pdo_sqlsrv.so" >> /etc/php/7.0/cli/php.ini
 RUN echo "extension=/usr/lib/php/20151012/sqlsrv.so" >> /etc/php/7.0/fpm/php.ini
 RUN echo "extension=/usr/lib/php/20151012/pdo_sqlsrv.so" >> /etc/php/7.0/fpm/php.ini
 
