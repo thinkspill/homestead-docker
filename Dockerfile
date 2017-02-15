@@ -34,6 +34,7 @@ RUN apt-get install -y locales \
 RUN pecl install sqlsrv pdo_sqlsrv
 
 # Install packages
+
 ADD provision.sh /provision.sh
 ADD serve.sh /serve.sh
 
