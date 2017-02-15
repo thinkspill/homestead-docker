@@ -40,5 +40,9 @@ RUN chmod +x /*.sh
 
 RUN ./provision.sh
 
-EXPOSE 80 22 35729 9876
+RUN echo "extension=/usr/lib/php/20151012/sqlsrv.so" >> /etc/php/7.0/fpm/php.ini
+RUN echo "extension=/usr/lib/php/20151012/pdo_sqlsrv.so" >> /etc/php/7.0/fpm/php.ini
+
+EXPOSE 80 22 35729 9876 1433
+
 CMD ["/usr/bin/supervisord"]
