@@ -17,10 +17,10 @@ RUN apt-get update && ACCEPT_EULA=Y apt-get install -y unixodbc-dev msodbcsql
 # php libraries
 RUN apt-get update && apt-get install -y \
     mcrypt \
-    php-mbstring \
     php-pear \
     php7.0 \
     php7.0-dev \
+    php7.0-mbstring \
     php7.0-mcrypt \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
