@@ -41,14 +41,14 @@ usermod -aG www-data homestead
 ln -sf /usr/share/zoneinfo/UTC /etc/localtime
 
 # PHP
-apt-get install -y php-cli php-dev php-pear \
-php-mysql php-pgsql php-sqlite3 php-soap \
-php-apcu php-json php-curl php-gd \
-php-gmp php-imap php-mcrypt php-xdebug \
-php-memcached php-redis php-mbstring php-zip
+apt-get install -y php7.0-cli php7.0-dev php7.0-pear \
+php7.0-mysql php7.0-pgsql php7.0-sqlite3 php7.0-soap \
+php7.0-apcu php7.0-json php7.0-curl php7.0-gd \
+php7.0-gmp php7.0-imap php7.0-mcrypt php7.0-xdebug \
+php7.0-memcached php7.0-redis php7.0-mbstring php7.0-zip
 
 # Nginx & PHP-FPM
-apt-get install -y nginx php-fpm
+apt-get install -y nginx php7.0-fpm
 
 # Enable mcrypt
 phpenmod mcrypt
